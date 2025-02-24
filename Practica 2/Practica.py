@@ -1,4 +1,5 @@
 import math
+import matplotlib.pyplot as plt
 
 class Punto:
     def __init__(self, x, y):
@@ -25,7 +26,14 @@ class Linea:
         return f"Linea desde {self.p1} hasta {self.p2}"
 
     def dibujaLinea(self):
-        print(self)
+        plt.plot([self.p1.x, self.p2.x], [self.p1.y, self.p2.y], marker='o')
+        plt.text(self.p1.x, self.p1.y, f'({self.p1.x}, {self.p1.y})')
+        plt.text(self.p2.x, self.p2.y, f'({self.p2.x}, {self.p2.y})')
+        plt.xlabel('X')
+        plt.ylabel('Y')
+        plt.title('Linea')
+        plt.grid()
+        plt.show()
 
 class Circulo:
     def __init__(self, centro, radio):
@@ -36,7 +44,17 @@ class Circulo:
         return f"Circulo con centro en {self.centro} y radio de {self.radio:.2f}"
 
     def dibujaCirculo(self):
-        print(self)
+        circle = plt.Circle((self.centro.x, self.centro.y), self.radio, fill=False)
+        fig, ax = plt.subplots()
+        ax.add_artist(circle)
+        ax.set_xlim(self.centro.x - self.radio - 1, self.centro.x + self.radio + 1)
+        ax.set_ylim(self.centro.y - self.radio - 1, self.centro.y + self.radio + 1)
+        ax.set_aspect('equal', 'box')
+        plt.xlabel('X')
+        plt.ylabel('Y')
+        plt.title('Circulo')
+        plt.grid()
+        plt.show()
 
 if __name__ == "__main__":
     p1 = Punto(0, 3)
